@@ -1,3 +1,5 @@
+// HashMap key is unique value, and will be replaced by new one.
+// two pointer is necessary.
 public class Solution {
     public int lengthOfLongestSubstring(String s) {
         HashMap<Character, Integer> hm=new HashMap<Character, Integer>();
