@@ -1,22 +1,35 @@
-//The second thinking version
+//The second thinking version, And this version successed. hahhahahaha
 public class Solution {
     public String convert(String s, int numRows) {
         int rMax=numRows;
+         if(rMax==1){
+            return s;
+        }
         int n=s.length();
+        int k=0;
         int c1=n/(2*rMax-2);
         int c2=n%(2*rMax-2);
         int jMax=(c1+1)*(rMax-1);
-        int x=n-rMax;
+        int k1=rMax-2;
         char[] s1=new char[n];
         s.getChars(0,n,s1,0);
         String newS[][]=new String[rMax][jMax];
         String res[]=new String[n];
         if(n<=rMax){
-                return s;
+            return s;
             }
-        int k=0;
-        int k1=rMax-2;
+        if(rMax==2){
+            for(int i=0;i<n;i++){
+                if(2*i<n){
+                newS[0][i]=String.valueOf(s1[2*i]);
+                }
+                if((2*i+1)<n){
+                newS[1][i]=String.valueOf(s1[2*i+1]);
+                }
+            }
+        }
         if(c1==0||(c1==1&&c2==0)){
+            System.out.println("diyige");
             for(int i=0;i<rMax;i++){
                 newS[i][0]=String.valueOf(s1[k]); //此方法直接将Char数组转换成String   
                 k++;
@@ -29,16 +42,32 @@ public class Solution {
                 k++;
                 }
             }
-        }     
-        // for(int j=0; j<=jMax; j++){
-           
-                
-        //     if(j==0||j==){
-                
-        //     }
-        // }
+        }
+        int r=0;     //循环内定义的变量只有在循环内成立，所以需要在循环外定一个变量才能改变改变量的值在循环外
+        if(n>(2*rMax-2)){
+             System.out.println("dierge");
+            for(int j=0; j<jMax; j++){
+                if(j==0||j%(rMax-1)==0){
+                    for(r=0;r<rMax;r++){
+                        if(k<n){
+                        newS[r][j]=String.valueOf(s1[k]);
+                        k++;
+                        }
+                    }
+                    r=r-2;
+                }
+                else{
+                    if(k<n){
+                    newS[r][j]=String.valueOf(s1[k]);
+                    k++;
+                    r--;
+                    }
+                }
+            }
+        }
         int l=0;
         for(int i=0; i<rMax;i++){
+             System.out.println("disange");
             for(int j=0;j<jMax;j++){
                 if(newS[i][j]!=null){
                 res[l]=newS[i][j];
@@ -46,11 +75,15 @@ public class Solution {
                 }
             }
         }
-        String res1=Arrays.toString(res);
-        return res1;
+        //String res1=Arrays.toString(res);
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < res.length; i++){
+         sb. append(res[i]);
+        }
+        String test = sb.toString();
+                return test;
     }
 }
-
 //first thinking version
 public class Solution {
     public String convert(String s, int numRows) {
