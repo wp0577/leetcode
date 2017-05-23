@@ -1,0 +1,25 @@
+//first thinking version
+public class Solution {
+    public String convert(String s, int numRows) {
+        int rMax=numRows;
+        int n=s.length();
+        String newS[]=new String[n];
+        int c1=n/(2*rMax-2);
+        int c2=n%(2*rMax-2);
+        int x=n-rMax;
+        if(n==rMax){
+                return s;
+            }
+        for(int r=rMax,int i=0;r>=1&&i<n;r--,i++){
+            if(c==0){
+                newS[n-1]=s.charAt(rMax-1);
+                newS[0]=s.charAt(0);
+                for(int i=1;i<n;i++){
+                while(x>=0){
+                    newS[i]=r
+                }
+                }
+            }
+        }
+    }
+}
