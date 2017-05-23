@@ -1,3 +1,56 @@
+//The second thinking version
+public class Solution {
+    public String convert(String s, int numRows) {
+        int rMax=numRows;
+        int n=s.length();
+        int c1=n/(2*rMax-2);
+        int c2=n%(2*rMax-2);
+        int jMax=(c1+1)*(rMax-1);
+        int x=n-rMax;
+        char[] s1=new char[n];
+        s.getChars(0,n,s1,0);
+        String newS[][]=new String[rMax][jMax];
+        String res[]=new String[n];
+        if(n<=rMax){
+                return s;
+            }
+        int k=0;
+        int k1=rMax-2;
+        if(c1==0||(c1==1&&c2==0)){
+            for(int i=0;i<rMax;i++){
+                newS[i][0]=String.valueOf(s1[k]); //此方法直接将Char数组转换成String   
+                k++;
+            }
+            for(int j=1;j<jMax;j++){
+                if(k<n){
+                System.out.println(k);
+                newS[k1][j]=String.valueOf(s1[k]);
+                k1--;
+                k++;
+                }
+            }
+        }     
+        // for(int j=0; j<=jMax; j++){
+           
+                
+        //     if(j==0||j==){
+                
+        //     }
+        // }
+        int l=0;
+        for(int i=0; i<rMax;i++){
+            for(int j=0;j<jMax;j++){
+                if(newS[i][j]!=null){
+                res[l]=newS[i][j];
+                l++;
+                }
+            }
+        }
+        String res1=Arrays.toString(res);
+        return res1;
+    }
+}
+
 //first thinking version
 public class Solution {
     public String convert(String s, int numRows) {
