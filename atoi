@@ -1,0 +1,30 @@
+public class Solution {
+    public int myAtoi(String str) {
+        int l=str.length();
+        char[] c=new char[l];
+        int k=0;
+        int res=0;
+        //first to check if this str contains integer.
+        if(str.matches(".*\\d+.*")){
+            if(Character.isDigit(str.charAt(0))||str.charAt(0)==' '){
+            for(int i=0;i<l;i++){
+                while(i<l&&Character.isDigit(str.charAt(i))){
+                    c[k]=str.charAt(i);
+                    k++;
+                    i++;
+                }
+                if(k>0){
+                break;
+                }  
+            }
+            }
+            else{return 0; }
+        }
+        else{
+            return 0;
+        }
+        String s=new String(c);
+        res=Integer.parseInt(s.trim()); //because we defiend the arrary which length is l, when string is not full digit
+        return res;                     //s will have some spaces in the end .the integer.parseInt method will make                                                                                                  fault.
+    }
+}
