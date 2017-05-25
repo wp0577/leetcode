@@ -1,3 +1,20 @@
+#######
+######
+compare half of the digits in x, so don't need to deal with overflow.
+
+public boolean isPalindrome(int x) {
+    if (x<0 || (x!=0 && x%10==0)) return false;
+    int rev = 0;
+    while (x>rev){
+    	rev = rev*10 + x%10;
+    	x = x/10;
+    }
+    return (x==rev || x==rev/10);
+}
+
+//this version is answered by me.
+//And I used reverse method to complete this question.
+//因为只要反转后相同则说明回文成立
 public class Solution {
     public boolean isPalindrome(int x) {
         int digit=0;
@@ -10,6 +27,10 @@ public class Solution {
         else{
             while(i>0){
                 digit=i%10;
+                if(Integer.MAX_VALUE/10<res||(Integer.MAX_VALUE/10==res&&digit>7)){
+                bl=false;
+                break;
+                }
                 i=i/10;
                 res=res*10+digit;
                 //System.out.println(res);
