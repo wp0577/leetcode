@@ -1,7 +1,7 @@
 #######
 ######
 compare half of the digits in x, so don't need to deal with overflow.
-
+通过将回文数字对半分来直接对比左右两边的数字，因此不用考虑溢出的问题。
 public boolean isPalindrome(int x) {
     if (x<0 || (x!=0 && x%10==0)) return false;
     int rev = 0;
