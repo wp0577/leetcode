@@ -1,4 +1,30 @@
+//this verison just cost O(n) time complexity and is more efficient.
+//llalal  it is thought by myself.
+//Just compress two points i and j from two sides.
 
+public class Solution {
+    public int maxArea(int[] height) {
+        int l=height.length;
+        int j=l-1;
+        int area=0;
+        int maxArea=0;
+        int i=0;
+        while(i<j){
+            if(height[i]>height[j]){
+                area=(j-i)*height[j];
+                maxArea=Math.max(area,maxArea);
+                j--;
+            }
+            else{
+                area=(j-i)*height[i];
+                maxArea=Math.max(area,maxArea);
+                i++;
+            }
+            
+        }
+        return maxArea;
+    }
+}
 
 
 // O(n^2) time complexity, and exceed the time limit.
