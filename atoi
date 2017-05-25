@@ -1,30 +1,105 @@
+#####更好的解法和思路
+case1: 判断是否为数字
+while (str[i] >= '0' && str[i] <= '9') {
+ ……
+ }
+ 通过判断char[]内的元素和数字进行对比即可知道元素是否为数字
+ ****char[]内的数字可以直接进行运算
+ 
+ case2:开头空格的去除
+ while(str[i] == " ") i++;
+ 
+ case3:正负号的判断
+ 这个方法很棒，直接让一个sign用1，-1去存储+，-号
+ 因为最后取sign*total的乘积。66666
+ if(str.charAt(index) == '+' || str.charAt(index) == '-'){
+        sign = str.charAt(index) == '+' ? 1 : -1;
+        index ++;
+    }
+    ...
+    return sign*total;
+
+ case4:overflow 和如何将数字表示出来
+ while(index < str.length()){
+        int digit = str.charAt(index) - '0'; //将char转化成int
+        if(digit < 0 || digit > 9) break;
+
+        //check if total will be overflow after 10 times and add digit
+        if(Integer.MAX_VALUE/10 < total || Integer.MAX_VALUE/10 == total && Integer.MAX_VALUE %10 < digit)
+            return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+
+        total = 10 * total + digit;
+        index ++;
+    }
+
+//in this problem, we need to consider a lot of boundary condition, like space, null, 0, +, -, 
+and consider the overflow condition.
+//I used regular expression here.
+//And I should know how to convert char[] to string and string to char[].
 public class Solution {
     public int myAtoi(String str) {
         int l=str.length();
         char[] c=new char[l];
         int k=0;
-        int res=0;
+        int res1=0;
+        Long res;
         //first to check if this str contains integer.
-        if(str.matches(".*\\d+.*")){
-            if(Character.isDigit(str.charAt(0))||str.charAt(0)==' '){
+        if(str.matches(" *-?\\d+.*| *\\+?\\d+.*")){
             for(int i=0;i<l;i++){
-                while(i<l&&Character.isDigit(str.charAt(i))){
-                    c[k]=str.charAt(i);
-                    k++;
-                    i++;
+                if(str.charAt(i)=='-'||str.charAt(i)=='+'){
+                        c[k]=str.charAt(i);
+                        k++;
+                        i++;
+                    while(i<l&&Character.isDigit(str.charAt(i))){
+                        c[k]=str.charAt(i);
+                        k++;
+                        i++;
+                    }
+                    if(k>0){
+                        break;
+                    }  
                 }
-                if(k>0){
-                break;
-                }  
+                if(Character.isDigit(str.charAt(i))){
+                    while(i<l&&Character.isDigit(str.charAt(i))){
+                        c[k]=str.charAt(i);
+                        k++;
+                        i++;
+                    }
+                    if(k>0){
+                        break;
+                    }  
+                }
             }
-            }
-            else{return 0; }
         }
         else{
             return 0;
         }
         String s=new String(c);
-        res=Integer.parseInt(s.trim()); //because we defiend the arrary which length is l, when string is not full digit
-        return res;                     //s will have some spaces in the end .the integer.parseInt method will make                                                                                                  fault.
+         //because we defiend the arrary which length is l, when string is not full digit 
+         //s will have some spaces in the end .the integer.parseInt method will make fault.                           
+        if(k>11){
+              System.out.println(s.length());
+            if(s.charAt(0)!='-'){
+            return 2147483647;
+            }
+            else{
+            return -2147483648;
+            }
+        }
+        else{
+          
+            res=Long.parseLong(s.trim());
+            if(res>2147483647){
+             return 2147483647;
+            }
+            else if(res<-2147483648){
+                return -2147483648;
+            }
+            else{
+                res1=Integer.parseInt(s.trim());
+            }
+            }
+        return res1;            
+
     }
 }
