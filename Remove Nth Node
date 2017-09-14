@@ -1,0 +1,40 @@
+This is my version.
+My idea is make a second linkedlist and restore the value.
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        int len=1;
+        List<Integer> tem=new ArrayList<Integer>();
+        tem.add(head.val);
+        while ( head.next != null ){
+            len++;
+            head=head.next;
+            tem.add(head.val);
+        }
+        System.out.println(len);
+        ListNode res=new ListNode( 0 );
+        head = res;
+        if (len==1) return head.next;
+        for (int i=0; i<len; i++) {
+            if (i ==(len-n)) continue;
+            res.next = new ListNode( tem.get(i) );
+            res = res.next;
+        }
+        return head.next;
+    }
+}
+
+One better idea is to mark the new length (length - n), and we can relink the link, like head.next = head.next.next.
+
+The next two better solutions are below:
+https://leetcode.com/problems/remove-nth-node-from-end-of-list/solution/
+1: is similar as me
+2: keeping one gap between a and b. First, a go through n, and then a and b go together. a will be end first, and meanwhile b.next=b.next.next. 
+
