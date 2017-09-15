@@ -1,0 +1,109 @@
+This is my version:
+the main idea is similar to 3sum quetion， 
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        List<List<Integer>> res= new ArrayList<>();
+        int len=nums.length;
+        if(len<4) return res;
+        for (int first=0; first<len-3; first++){
+            if ( first>=1 && nums[first]==nums[first-1]) continue;
+
+            int s= target -nums[first];
+            for (int second=first+1; second<len-2; second++){
+                if(second>first+1 && nums[second] ==nums[second-1]) continue;
+                int s1= s- nums[second];
+                int third= second+1;
+                int last= len-1;
+                while(third < last){
+                    int s2= nums[third]+ nums[last];
+                    if( third>second+1 && nums[third]==nums[third-1]) {
+                        third++;
+                        continue;
+                    }
+                    if(last<len-1 && nums[last]==nums[last+1]) {
+                        last--;
+                        continue;
+                    }
+                    if(s2==s1) {
+                        res.add(Arrays.asList(nums[first],nums[second],nums[third],nums[last]));
+                        last--;
+                        third++;
+                    }
+                    if(s2>s1) last--;
+                    if(s2<s1) third++;
+                    
+                }
+            }
+            
+        }
+         return res;
+    }
+}
+
+class Solution {
+    public void twoSum(int[] nums, int target, int left, List<List<Integer>> res, int firstNum, int secondNum){
+        int n = nums.length;
+        if(nums[left]*2 > target || nums[n-1]*2 < target){
+            return;
+        }
+        int l = left+1, r = n-1;
+        while(l<r){
+            if(nums[l]+nums[r]==target){
+                res.add(Arrays.asList(firstNum, secondNum, nums[l], nums[r]));
+                while(l<r && nums[l]==nums[l+1]){
+                    l++;
+                }
+                while(l<r && nums[r]==nums[r-1]){
+                    r--;
+                }
+                l++;
+                r--;
+            }else if(nums[l]+nums[r]<target){
+                l++;
+            }else{
+                r--;
+            }
+        }
+    }
+    
+    The best solution:
+    #######
+    add a lot of bound condition, the minimum number*4 should bigger than target and max*4 shouldn't smaller than target. 
+    public void threeSum(int[] nums, int target, int left, List<List<Integer>> res, int firstNum){
+        int n = nums.length;
+        if(nums[left]*3 > target || nums[n-1]*3 < target){
+            return;
+        }
+        for(int i=left; i< n-2; i++){
+            if(nums[i]*3 > target){
+                return;
+            }
+            if(i>left && nums[i]==nums[i-1]){
+                continue;
+            }
+            twoSum(nums, target-nums[i], i, res, firstNum, nums[i]);
+        }
+    }
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(nums==null ||nums.length==0){
+            return res;
+        }
+        Arrays.sort(nums);
+        if(nums[0]*4 > target || nums[nums.length-1]*4 < target){
+            return res;
+        }
+        
+        for(int i=0; i<nums.length-3; i++){
+            if(nums[i]*4 > target){
+                return res;
+            }
+            if(i>0 && nums[i]==nums[i-1]){
+                continue; //avoid duplicate
+            }
+            threeSum(nums, target-nums[i], i+1, res, nums[i]);
+        }
+        return res;
+    }
+}
